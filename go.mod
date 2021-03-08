@@ -1,4 +1,4 @@
-module server
+module ncutbbs
 
 go 1.16
 

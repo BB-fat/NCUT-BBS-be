@@ -14,11 +14,7 @@ func Session() gin.HandlerFunc {
 			return
 		}
 		s := session.Get(token)
-		if s == nil {
-			c.AbortWithStatus(http.StatusUnauthorized)
-			return
-		}
-		if !session.Valid(s) {
+		if s == nil || !session.Valid(s) {
 			c.AbortWithStatus(http.StatusUnauthorized)
 			return
 		}

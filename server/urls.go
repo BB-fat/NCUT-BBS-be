@@ -17,6 +17,11 @@ func setUrl(r *gin.Engine) {
 		}
 	}
 
+	account := r.Group("/account")
+	{
+		account.POST("/login", controller.LoginByPassword)
+	}
+
 	// 测试接口
 	if config.Config.Debug {
 		test := r.Group("text")

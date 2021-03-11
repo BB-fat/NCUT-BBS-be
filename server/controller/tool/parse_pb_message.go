@@ -1,4 +1,4 @@
-package controller
+package tool
 
 import (
 	"github.com/gin-gonic/gin"
@@ -6,12 +6,12 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-func loadMessage(c *gin.Context, m proto.Message) {
+func LoadMessage(c *gin.Context, m proto.Message) {
 	body, _ := c.GetRawData()
 	_ = protojson.Unmarshal(body, m)
 }
 
-func dumpMessage(m proto.Message) string {
+func DumpMessage(m proto.Message) string {
 	json, _ := protojson.Marshal(m)
 	return string(json)
 }

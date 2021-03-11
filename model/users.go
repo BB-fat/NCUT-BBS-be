@@ -13,6 +13,7 @@ create table ncut_bbs.users
 	account_status int default 0 not null comment '0:未实名 1:待审核 2:实名未通过 3:激活 4:被封禁',
 	grade int null comment '年级',
 	create_time int not null,
+	avatar text null,
 	constraint user_account_name_uindex
 		unique (account_name)
 )
@@ -22,6 +23,7 @@ comment '用户信息';
 type User struct {
 	ID            uint
 	AccountName   string
+	Avatar        string
 	Password      string
 	RealName      string
 	Sex           int

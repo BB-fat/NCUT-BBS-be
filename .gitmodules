@@ -1,3 +1,3 @@
-[submodule "ncut_bbs_api_model"]
-	path = ncut_bbs_api_model
-	url = git@github.com:BB-fat/ncut_bbs_api_model.git
+[submodule "proto/ncut_bbs_proto"]
+	path = proto/ncut_bbs_proto
+	url = git@github.com:BB-fat/ncut_bbs_proto.git

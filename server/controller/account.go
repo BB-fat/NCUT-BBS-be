@@ -3,7 +3,7 @@ package controller
 import (
 	"github.com/gin-gonic/gin"
 	"ncutbbs/module/account"
-	"ncutbbs/ncut_bbs_api_model/accountPB"
+	accountPB "ncutbbs/proto/account"
 	"ncutbbs/server/controller/tool"
 	"net/http"
 )

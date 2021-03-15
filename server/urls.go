@@ -14,12 +14,14 @@ func setUrl(r *gin.Engine) {
 		session.Use(middleware.Session())
 		{
 			session.GET("/test2", controller.Test2)
+			// 刷新Token
+			session.GET("/refresh-token", controller.RefreshToken)
 		}
-	}
 
-	account := r.Group("/account")
-	{
-		account.POST("/login", controller.LoginByPassword)
+		account := r.Group("/account")
+		{
+			account.POST("/login", controller.LoginByPassword)
+		}
 	}
 
 	// 测试接口

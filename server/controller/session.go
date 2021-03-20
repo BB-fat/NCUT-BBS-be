@@ -10,11 +10,6 @@ import (
 
 func RefreshToken(c *gin.Context) {
 	s := session.Get(c.GetHeader("token"))
-	if s == nil {
-		c.String(http.StatusOK, tool.DumpMessage(&sessionPB.RefreshTokenReply{
-			Success: false,
-		}))
-	}
 	session.RefreshToken(s)
 	c.String(http.StatusOK, tool.DumpMessage(&sessionPB.RefreshTokenReply{
 		Success: true,

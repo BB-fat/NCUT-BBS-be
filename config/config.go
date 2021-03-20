@@ -30,7 +30,7 @@ func ParseConfig() {
 	flag.StringVar(&Config.DBHost, "DBHost", "", "数据库host")
 	flag.IntVar(&Config.DBPort, "DBPort", 3306, "数据库端口")
 	flag.StringVar(&Config.DBName, "DBName", "ncut_bbs", "数据库名")
-
+	// session 有效时间 默认两小时
 	flag.IntVar(&Config.SessionTTL, "SessionTTL", 60*60*2, "session有效时间")
 
 	flag.Parse()

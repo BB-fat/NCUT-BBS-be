@@ -3,12 +3,13 @@ package middleware
 import (
 	"github.com/gin-gonic/gin"
 	"ncutbbs/module/session"
+	"ncutbbs/server/controller/tool"
 	"net/http"
 )
 
 func Session() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		token := c.GetHeader("token")
+		token := tool.GetToken(c)
 		if len(token) == 0 {
 			c.AbortWithStatus(http.StatusUnauthorized)
 			return

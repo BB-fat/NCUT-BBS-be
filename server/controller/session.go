@@ -9,7 +9,7 @@ import (
 )
 
 func RefreshToken(c *gin.Context) {
-	s := session.Get(c.GetHeader("token"))
+	s := session.Get(tool.GetToken(c))
 	session.RefreshToken(s)
 	c.String(http.StatusOK, tool.DumpMessage(&sessionPB.RefreshTokenReply{
 		Success: true,

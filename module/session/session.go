@@ -36,3 +36,13 @@ func RefreshToken(session *model.Session) {
 func Valid(session *model.Session) bool {
 	return time.Now().Unix()-session.UpdateTime <= int64(config.Config.SessionTTL)
 }
+
+func GetUser(token string) *model.User {
+	s := Get(token)
+	if s == nil {
+		return nil
+	}
+	u := model.User{}
+	model.DB.Where("id = ?", s.UserID).First(&u)
+	return &u
+}

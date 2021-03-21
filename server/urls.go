@@ -18,9 +18,15 @@ func setUrl(r *gin.Engine) {
 			session.GET("/refresh-token", controller.RefreshToken)
 		}
 
-		account := r.Group("/account")
+		account := v1.Group("/account")
 		{
 			account.POST("/login", controller.LoginByPassword)
+
+			accountSession := account.Group("")
+			accountSession.Use(middleware.Session())
+			{
+				accountSession.GET("/user-info", controller.GetUserInfo)
+			}
 		}
 	}
 

@@ -12,6 +12,10 @@ func LoadMessage(c *gin.Context, m proto.Message) {
 }
 
 func DumpMessage(m proto.Message) string {
-	json, _ := protojson.Marshal(m)
+	json, _ := protojson.MarshalOptions{
+		UseProtoNames:   true,
+		UseEnumNumbers:  false,
+		EmitUnpopulated: true,
+	}.Marshal(m)
 	return string(json)
 }

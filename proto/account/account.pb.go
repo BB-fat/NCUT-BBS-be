@@ -25,72 +25,26 @@ const (
 // of the legacy proto package is being used.
 const _ = proto.ProtoPackageIsVersion4
 
-type GetUserInfoReply_Sex int32
+type AccountStatus int32
 
 const (
-	GetUserInfoReply_MALE   GetUserInfoReply_Sex = 0
-	GetUserInfoReply_FEMALE GetUserInfoReply_Sex = 1
+	AccountStatus_UNNAMED        AccountStatus = 0
+	AccountStatus_PENDING_REVIEW AccountStatus = 1
+	AccountStatus_NOT_PASS       AccountStatus = 2
+	AccountStatus_ACTIVE         AccountStatus = 3
+	AccountStatus_DISABLED       AccountStatus = 4
 )
 
-// Enum value maps for GetUserInfoReply_Sex.
+// Enum value maps for AccountStatus.
 var (
-	GetUserInfoReply_Sex_name = map[int32]string{
-		0: "MALE",
-		1: "FEMALE",
-	}
-	GetUserInfoReply_Sex_value = map[string]int32{
-		"MALE":   0,
-		"FEMALE": 1,
-	}
-)
-
-func (x GetUserInfoReply_Sex) Enum() *GetUserInfoReply_Sex {
-	p := new(GetUserInfoReply_Sex)
-	*p = x
-	return p
-}
-
-func (x GetUserInfoReply_Sex) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (GetUserInfoReply_Sex) Descriptor() protoreflect.EnumDescriptor {
-	return file_account_proto_enumTypes[0].Descriptor()
-}
-
-func (GetUserInfoReply_Sex) Type() protoreflect.EnumType {
-	return &file_account_proto_enumTypes[0]
-}
-
-func (x GetUserInfoReply_Sex) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use GetUserInfoReply_Sex.Descriptor instead.
-func (GetUserInfoReply_Sex) EnumDescriptor() ([]byte, []int) {
-	return file_account_proto_rawDescGZIP(), []int{2, 0}
-}
-
-type GetUserInfoReply_AccountStatus int32
-
-const (
-	GetUserInfoReply_UNNAMED        GetUserInfoReply_AccountStatus = 0
-	GetUserInfoReply_PENDING_REVIEW GetUserInfoReply_AccountStatus = 1
-	GetUserInfoReply_NOT_PASS       GetUserInfoReply_AccountStatus = 2
-	GetUserInfoReply_ACTIVE         GetUserInfoReply_AccountStatus = 3
-	GetUserInfoReply_DISABLED       GetUserInfoReply_AccountStatus = 4
-)
-
-// Enum value maps for GetUserInfoReply_AccountStatus.
-var (
-	GetUserInfoReply_AccountStatus_name = map[int32]string{
+	AccountStatus_name = map[int32]string{
 		0: "UNNAMED",
 		1: "PENDING_REVIEW",
 		2: "NOT_PASS",
 		3: "ACTIVE",
 		4: "DISABLED",
 	}
-	GetUserInfoReply_AccountStatus_value = map[string]int32{
+	AccountStatus_value = map[string]int32{
 		"UNNAMED":        0,
 		"PENDING_REVIEW": 1,
 		"NOT_PASS":       2,
@@ -99,31 +53,77 @@ var (
 	}
 )
 
-func (x GetUserInfoReply_AccountStatus) Enum() *GetUserInfoReply_AccountStatus {
-	p := new(GetUserInfoReply_AccountStatus)
+func (x AccountStatus) Enum() *AccountStatus {
+	p := new(AccountStatus)
 	*p = x
 	return p
 }
 
-func (x GetUserInfoReply_AccountStatus) String() string {
+func (x AccountStatus) String() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
-func (GetUserInfoReply_AccountStatus) Descriptor() protoreflect.EnumDescriptor {
-	return file_account_proto_enumTypes[1].Descriptor()
+func (AccountStatus) Descriptor() protoreflect.EnumDescriptor {
+	return file_account_proto_enumTypes[0].Descriptor()
 }
 
-func (GetUserInfoReply_AccountStatus) Type() protoreflect.EnumType {
-	return &file_account_proto_enumTypes[1]
+func (AccountStatus) Type() protoreflect.EnumType {
+	return &file_account_proto_enumTypes[0]
 }
 
-func (x GetUserInfoReply_AccountStatus) Number() protoreflect.EnumNumber {
+func (x AccountStatus) Number() protoreflect.EnumNumber {
 	return protoreflect.EnumNumber(x)
 }
 
-// Deprecated: Use GetUserInfoReply_AccountStatus.Descriptor instead.
-func (GetUserInfoReply_AccountStatus) EnumDescriptor() ([]byte, []int) {
-	return file_account_proto_rawDescGZIP(), []int{2, 1}
+// Deprecated: Use AccountStatus.Descriptor instead.
+func (AccountStatus) EnumDescriptor() ([]byte, []int) {
+	return file_account_proto_rawDescGZIP(), []int{0}
+}
+
+type Sex int32
+
+const (
+	Sex_MALE   Sex = 0
+	Sex_FEMALE Sex = 1
+)
+
+// Enum value maps for Sex.
+var (
+	Sex_name = map[int32]string{
+		0: "MALE",
+		1: "FEMALE",
+	}
+	Sex_value = map[string]int32{
+		"MALE":   0,
+		"FEMALE": 1,
+	}
+)
+
+func (x Sex) Enum() *Sex {
+	p := new(Sex)
+	*p = x
+	return p
+}
+
+func (x Sex) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (Sex) Descriptor() protoreflect.EnumDescriptor {
+	return file_account_proto_enumTypes[1].Descriptor()
+}
+
+func (Sex) Type() protoreflect.EnumType {
+	return &file_account_proto_enumTypes[1]
+}
+
+func (x Sex) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use Sex.Descriptor instead.
+func (Sex) EnumDescriptor() ([]byte, []int) {
+	return file_account_proto_rawDescGZIP(), []int{1}
 }
 
 type LoginRequest struct {
@@ -244,25 +244,122 @@ func (x *LoginReply) GetToken() string {
 	return ""
 }
 
+type UserInfo struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id            int64         `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	AccountName   string        `protobuf:"bytes,2,opt,name=account_name,json=accountName,proto3" json:"account_name,omitempty"`
+	RealName      string        `protobuf:"bytes,3,opt,name=real_name,json=realName,proto3" json:"real_name,omitempty"`
+	Sex           Sex           `protobuf:"varint,4,opt,name=sex,proto3,enum=account.Sex" json:"sex,omitempty"`
+	College       string        `protobuf:"bytes,5,opt,name=college,proto3" json:"college,omitempty"`
+	AccountStatus AccountStatus `protobuf:"varint,6,opt,name=account_status,json=accountStatus,proto3,enum=account.AccountStatus" json:"account_status,omitempty"`
+	Grade         int32         `protobuf:"varint,7,opt,name=grade,proto3" json:"grade,omitempty"`
+	Avatar        string        `protobuf:"bytes,8,opt,name=avatar,proto3" json:"avatar,omitempty"`
+}
+
+func (x *UserInfo) Reset() {
+	*x = UserInfo{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_account_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UserInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UserInfo) ProtoMessage() {}
+
+func (x *UserInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_account_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UserInfo.ProtoReflect.Descriptor instead.
+func (*UserInfo) Descriptor() ([]byte, []int) {
+	return file_account_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *UserInfo) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *UserInfo) GetAccountName() string {
+	if x != nil {
+		return x.AccountName
+	}
+	return ""
+}
+
+func (x *UserInfo) GetRealName() string {
+	if x != nil {
+		return x.RealName
+	}
+	return ""
+}
+
+func (x *UserInfo) GetSex() Sex {
+	if x != nil {
+		return x.Sex
+	}
+	return Sex_MALE
+}
+
+func (x *UserInfo) GetCollege() string {
+	if x != nil {
+		return x.College
+	}
+	return ""
+}
+
+func (x *UserInfo) GetAccountStatus() AccountStatus {
+	if x != nil {
+		return x.AccountStatus
+	}
+	return AccountStatus_UNNAMED
+}
+
+func (x *UserInfo) GetGrade() int32 {
+	if x != nil {
+		return x.Grade
+	}
+	return 0
+}
+
+func (x *UserInfo) GetAvatar() string {
+	if x != nil {
+		return x.Avatar
+	}
+	return ""
+}
+
 type GetUserInfoReply struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id            int64                          `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	AccountName   string                         `protobuf:"bytes,2,opt,name=account_name,json=accountName,proto3" json:"account_name,omitempty"`
-	RealName      string                         `protobuf:"bytes,3,opt,name=real_name,json=realName,proto3" json:"real_name,omitempty"`
-	Sex           GetUserInfoReply_Sex           `protobuf:"varint,4,opt,name=sex,proto3,enum=account.GetUserInfoReply_Sex" json:"sex,omitempty"`
-	College       string                         `protobuf:"bytes,5,opt,name=college,proto3" json:"college,omitempty"`
-	AccountStatus GetUserInfoReply_AccountStatus `protobuf:"varint,6,opt,name=account_status,json=accountStatus,proto3,enum=account.GetUserInfoReply_AccountStatus" json:"account_status,omitempty"`
-	Grade         int32                          `protobuf:"varint,7,opt,name=grade,proto3" json:"grade,omitempty"`
-	Avatar        string                         `protobuf:"bytes,8,opt,name=avatar,proto3" json:"avatar,omitempty"`
+	UserInfo *UserInfo `protobuf:"bytes,1,opt,name=userInfo,proto3" json:"userInfo,omitempty"`
+	Message  string    `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
 }
 
 func (x *GetUserInfoReply) Reset() {
 	*x = GetUserInfoReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_account_proto_msgTypes[2]
+		mi := &file_account_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -275,7 +372,7 @@ func (x *GetUserInfoReply) String() string {
 func (*GetUserInfoReply) ProtoMessage() {}
 
 func (x *GetUserInfoReply) ProtoReflect() protoreflect.Message {
-	mi := &file_account_proto_msgTypes[2]
+	mi := &file_account_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -288,61 +385,19 @@ func (x *GetUserInfoReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetUserInfoReply.ProtoReflect.Descriptor instead.
 func (*GetUserInfoReply) Descriptor() ([]byte, []int) {
-	return file_account_proto_rawDescGZIP(), []int{2}
+	return file_account_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *GetUserInfoReply) GetId() int64 {
+func (x *GetUserInfoReply) GetUserInfo() *UserInfo {
 	if x != nil {
-		return x.Id
+		return x.UserInfo
 	}
-	return 0
+	return nil
 }
 
-func (x *GetUserInfoReply) GetAccountName() string {
+func (x *GetUserInfoReply) GetMessage() string {
 	if x != nil {
-		return x.AccountName
-	}
-	return ""
-}
-
-func (x *GetUserInfoReply) GetRealName() string {
-	if x != nil {
-		return x.RealName
-	}
-	return ""
-}
-
-func (x *GetUserInfoReply) GetSex() GetUserInfoReply_Sex {
-	if x != nil {
-		return x.Sex
-	}
-	return GetUserInfoReply_MALE
-}
-
-func (x *GetUserInfoReply) GetCollege() string {
-	if x != nil {
-		return x.College
-	}
-	return ""
-}
-
-func (x *GetUserInfoReply) GetAccountStatus() GetUserInfoReply_AccountStatus {
-	if x != nil {
-		return x.AccountStatus
-	}
-	return GetUserInfoReply_UNNAMED
-}
-
-func (x *GetUserInfoReply) GetGrade() int32 {
-	if x != nil {
-		return x.Grade
-	}
-	return 0
-}
-
-func (x *GetUserInfoReply) GetAvatar() string {
-	if x != nil {
-		return x.Avatar
+		return x.Message
 	}
 	return ""
 }
@@ -362,34 +417,37 @@ var file_account_proto_rawDesc = []byte{
 	0x18, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09,
 	0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x6b,
 	0x65, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x22,
-	0xa2, 0x03, 0x0a, 0x10, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x49, 0x6e, 0x66, 0x6f, 0x52,
-	0x65, 0x70, 0x6c, 0x79, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03,
-	0x52, 0x02, 0x69, 0x64, 0x12, 0x21, 0x0a, 0x0c, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x5f,
-	0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x61, 0x63, 0x63, 0x6f,
-	0x75, 0x6e, 0x74, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x1b, 0x0a, 0x09, 0x72, 0x65, 0x61, 0x6c, 0x5f,
-	0x6e, 0x61, 0x6d, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x72, 0x65, 0x61, 0x6c,
-	0x4e, 0x61, 0x6d, 0x65, 0x12, 0x2f, 0x0a, 0x03, 0x73, 0x65, 0x78, 0x18, 0x04, 0x20, 0x01, 0x28,
-	0x0e, 0x32, 0x1d, 0x2e, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x2e, 0x47, 0x65, 0x74, 0x55,
-	0x73, 0x65, 0x72, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x2e, 0x53, 0x65, 0x78,
-	0x52, 0x03, 0x73, 0x65, 0x78, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x6f, 0x6c, 0x6c, 0x65, 0x67, 0x65,
-	0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x6f, 0x6c, 0x6c, 0x65, 0x67, 0x65, 0x12,
-	0x4e, 0x0a, 0x0e, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x5f, 0x73, 0x74, 0x61, 0x74, 0x75,
-	0x73, 0x18, 0x06, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x27, 0x2e, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e,
-	0x74, 0x2e, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x70,
-	0x6c, 0x79, 0x2e, 0x41, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73,
-	0x52, 0x0d, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12,
-	0x14, 0x0a, 0x05, 0x67, 0x72, 0x61, 0x64, 0x65, 0x18, 0x07, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05,
-	0x67, 0x72, 0x61, 0x64, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x61, 0x76, 0x61, 0x74, 0x61, 0x72, 0x18,
-	0x08, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x61, 0x76, 0x61, 0x74, 0x61, 0x72, 0x22, 0x1b, 0x0a,
-	0x03, 0x53, 0x65, 0x78, 0x12, 0x08, 0x0a, 0x04, 0x4d, 0x41, 0x4c, 0x45, 0x10, 0x00, 0x12, 0x0a,
-	0x0a, 0x06, 0x46, 0x45, 0x4d, 0x41, 0x4c, 0x45, 0x10, 0x01, 0x22, 0x58, 0x0a, 0x0d, 0x41, 0x63,
-	0x63, 0x6f, 0x75, 0x6e, 0x74, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x0b, 0x0a, 0x07, 0x55,
-	0x4e, 0x4e, 0x41, 0x4d, 0x45, 0x44, 0x10, 0x00, 0x12, 0x12, 0x0a, 0x0e, 0x50, 0x45, 0x4e, 0x44,
-	0x49, 0x4e, 0x47, 0x5f, 0x52, 0x45, 0x56, 0x49, 0x45, 0x57, 0x10, 0x01, 0x12, 0x0c, 0x0a, 0x08,
-	0x4e, 0x4f, 0x54, 0x5f, 0x50, 0x41, 0x53, 0x53, 0x10, 0x02, 0x12, 0x0a, 0x0a, 0x06, 0x41, 0x43,
-	0x54, 0x49, 0x56, 0x45, 0x10, 0x03, 0x12, 0x0c, 0x0a, 0x08, 0x44, 0x49, 0x53, 0x41, 0x42, 0x4c,
-	0x45, 0x44, 0x10, 0x04, 0x42, 0x0b, 0x5a, 0x09, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x50,
-	0x42, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x81, 0x02, 0x0a, 0x08, 0x55, 0x73, 0x65, 0x72, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x0e, 0x0a, 0x02,
+	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x12, 0x21, 0x0a, 0x0c,
+	0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x0b, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x4e, 0x61, 0x6d, 0x65, 0x12,
+	0x1b, 0x0a, 0x09, 0x72, 0x65, 0x61, 0x6c, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x03, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x08, 0x72, 0x65, 0x61, 0x6c, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x1e, 0x0a, 0x03,
+	0x73, 0x65, 0x78, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x0c, 0x2e, 0x61, 0x63, 0x63, 0x6f,
+	0x75, 0x6e, 0x74, 0x2e, 0x53, 0x65, 0x78, 0x52, 0x03, 0x73, 0x65, 0x78, 0x12, 0x18, 0x0a, 0x07,
+	0x63, 0x6f, 0x6c, 0x6c, 0x65, 0x67, 0x65, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63,
+	0x6f, 0x6c, 0x6c, 0x65, 0x67, 0x65, 0x12, 0x3d, 0x0a, 0x0e, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e,
+	0x74, 0x5f, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x06, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x16,
+	0x2e, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x2e, 0x41, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74,
+	0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x0d, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x53,
+	0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x14, 0x0a, 0x05, 0x67, 0x72, 0x61, 0x64, 0x65, 0x18, 0x07,
+	0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x67, 0x72, 0x61, 0x64, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x61,
+	0x76, 0x61, 0x74, 0x61, 0x72, 0x18, 0x08, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x61, 0x76, 0x61,
+	0x74, 0x61, 0x72, 0x22, 0x5b, 0x0a, 0x10, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x49, 0x6e,
+	0x66, 0x6f, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x2d, 0x0a, 0x08, 0x75, 0x73, 0x65, 0x72, 0x49,
+	0x6e, 0x66, 0x6f, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x11, 0x2e, 0x61, 0x63, 0x63, 0x6f,
+	0x75, 0x6e, 0x74, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x08, 0x75, 0x73,
+	0x65, 0x72, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x18, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67,
+	0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65,
+	0x2a, 0x58, 0x0a, 0x0d, 0x41, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x53, 0x74, 0x61, 0x74, 0x75,
+	0x73, 0x12, 0x0b, 0x0a, 0x07, 0x55, 0x4e, 0x4e, 0x41, 0x4d, 0x45, 0x44, 0x10, 0x00, 0x12, 0x12,
+	0x0a, 0x0e, 0x50, 0x45, 0x4e, 0x44, 0x49, 0x4e, 0x47, 0x5f, 0x52, 0x45, 0x56, 0x49, 0x45, 0x57,
+	0x10, 0x01, 0x12, 0x0c, 0x0a, 0x08, 0x4e, 0x4f, 0x54, 0x5f, 0x50, 0x41, 0x53, 0x53, 0x10, 0x02,
+	0x12, 0x0a, 0x0a, 0x06, 0x41, 0x43, 0x54, 0x49, 0x56, 0x45, 0x10, 0x03, 0x12, 0x0c, 0x0a, 0x08,
+	0x44, 0x49, 0x53, 0x41, 0x42, 0x4c, 0x45, 0x44, 0x10, 0x04, 0x2a, 0x1b, 0x0a, 0x03, 0x53, 0x65,
+	0x78, 0x12, 0x08, 0x0a, 0x04, 0x4d, 0x41, 0x4c, 0x45, 0x10, 0x00, 0x12, 0x0a, 0x0a, 0x06, 0x46,
+	0x45, 0x4d, 0x41, 0x4c, 0x45, 0x10, 0x01, 0x42, 0x0b, 0x5a, 0x09, 0x61, 0x63, 0x63, 0x6f, 0x75,
+	0x6e, 0x74, 0x50, 0x42, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -405,22 +463,24 @@ func file_account_proto_rawDescGZIP() []byte {
 }
 
 var file_account_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_account_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_account_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_account_proto_goTypes = []interface{}{
-	(GetUserInfoReply_Sex)(0),           // 0: account.GetUserInfoReply.Sex
-	(GetUserInfoReply_AccountStatus)(0), // 1: account.GetUserInfoReply.AccountStatus
-	(*LoginRequest)(nil),                // 2: account.LoginRequest
-	(*LoginReply)(nil),                  // 3: account.LoginReply
-	(*GetUserInfoReply)(nil),            // 4: account.GetUserInfoReply
+	(AccountStatus)(0),       // 0: account.AccountStatus
+	(Sex)(0),                 // 1: account.Sex
+	(*LoginRequest)(nil),     // 2: account.LoginRequest
+	(*LoginReply)(nil),       // 3: account.LoginReply
+	(*UserInfo)(nil),         // 4: account.UserInfo
+	(*GetUserInfoReply)(nil), // 5: account.GetUserInfoReply
 }
 var file_account_proto_depIdxs = []int32{
-	0, // 0: account.GetUserInfoReply.sex:type_name -> account.GetUserInfoReply.Sex
-	1, // 1: account.GetUserInfoReply.account_status:type_name -> account.GetUserInfoReply.AccountStatus
-	2, // [2:2] is the sub-list for method output_type
-	2, // [2:2] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	1, // 0: account.UserInfo.sex:type_name -> account.Sex
+	0, // 1: account.UserInfo.account_status:type_name -> account.AccountStatus
+	4, // 2: account.GetUserInfoReply.userInfo:type_name -> account.UserInfo
+	3, // [3:3] is the sub-list for method output_type
+	3, // [3:3] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_account_proto_init() }
@@ -454,6 +514,18 @@ func file_account_proto_init() {
 			}
 		}
 		file_account_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UserInfo); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_account_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetUserInfoReply); i {
 			case 0:
 				return &v.state
@@ -472,7 +544,7 @@ func file_account_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_account_proto_rawDesc,
 			NumEnums:      2,
-			NumMessages:   3,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

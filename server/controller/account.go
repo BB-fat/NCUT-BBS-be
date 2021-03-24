@@ -22,13 +22,15 @@ func LoginByPassword(c *gin.Context) {
 func GetUserInfo(c *gin.Context) {
 	u := tool.GetUser(c)
 	c.String(http.StatusOK, tool.DumpMessage(&accountPB.GetUserInfoReply{
-		Id:            int64(u.ID),
-		AccountName:   u.AccountName,
-		RealName:      u.RealName,
-		Sex:           accountPB.GetUserInfoReply_Sex(u.Sex),
-		College:       u.College,
-		AccountStatus: accountPB.GetUserInfoReply_AccountStatus(u.AccountStatus),
-		Grade:         int32(u.Grade),
-		Avatar:        u.Avatar,
+		UserInfo: &accountPB.UserInfo{
+			Id:            int64(u.ID),
+			AccountName:   u.AccountName,
+			RealName:      u.RealName,
+			Sex:           accountPB.Sex(u.Sex),
+			College:       u.College,
+			AccountStatus: accountPB.AccountStatus(u.AccountStatus),
+			Grade:         int32(u.Grade),
+			Avatar:        u.Avatar,
+		},
 	}))
 }

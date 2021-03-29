@@ -8,15 +8,12 @@ import (
 )
 
 func setUrl(r *gin.Engine) {
+	r.Static("/static", "./static")
+
 	v1 := r.Group("/v1")
 	{
-		session := v1.Group("")
-		session.Use(middleware.Session())
-		{
-			session.GET("/test2", controller.Test2)
-			// 刷新Token
-			session.GET("/refresh-token", controller.RefreshToken)
-		}
+		// 刷新Token
+		v1.GET("/refresh-token", controller.RefreshToken)
 
 		account := v1.Group("/account")
 		{

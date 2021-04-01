@@ -15,6 +15,9 @@ func setUrl(r *gin.Engine) {
 		// 刷新Token
 		v1.GET("/refresh-token", controller.RefreshToken)
 
+		// 上传文件
+		v1.POST("/upload", controller.Upload)
+
 		account := v1.Group("/account")
 		{
 			account.POST("/login", controller.LoginByPassword)

@@ -14,6 +14,11 @@ type ServerConfig struct {
 	DBName     string
 	// session有效时间
 	SessionTTL int
+	// oss参数
+	OSSAccessKeyID     string
+	OSSAccessKeySecret string
+	OSSEndpoint        string
+	OSSBaseURL         string
 }
 
 var Config ServerConfig
@@ -32,6 +37,12 @@ func ParseConfig() {
 	flag.StringVar(&Config.DBName, "DBName", "ncut_bbs", "数据库名")
 	// session 有效时间 默认两小时
 	flag.IntVar(&Config.SessionTTL, "SessionTTL", 60*60*2, "session有效时间")
+
+	// OSS
+	flag.StringVar(&Config.OSSEndpoint, "OSSEndpoint", "", "OSSEndpoint")
+	flag.StringVar(&Config.OSSBaseURL, "OSSBaseURL", "", "OSSBaseURL")
+	flag.StringVar(&Config.OSSAccessKeyID, "OSSAccessKeyID", "", "OSSAccessKeyID")
+	flag.StringVar(&Config.OSSAccessKeySecret, "OSSAccessKeySecret", "", "OSSAccessKeySecret")
 
 	flag.Parse()
 }

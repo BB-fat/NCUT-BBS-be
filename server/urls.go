@@ -18,6 +18,8 @@ func setUrl(r *gin.Engine) {
 		account := v1.Group("/account")
 		{
 			account.POST("/login", controller.LoginByPassword)
+			// 创建账号
+			account.POST("/create", controller.CreateAccount)
 
 			accountSession := account.Group("")
 			accountSession.Use(middleware.Session())

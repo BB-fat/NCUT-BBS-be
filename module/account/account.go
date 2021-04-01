@@ -3,6 +3,7 @@ package account
 import (
 	"ncutbbs/model"
 	"ncutbbs/module/session"
+	accountPB "ncutbbs/proto/account"
 )
 
 func LoginByPassword(accountName, password string) (success bool, token string, message string) {
@@ -18,5 +19,29 @@ func LoginByPassword(accountName, password string) (success bool, token string, 
 	} else {
 		session.RefreshToken(&s)
 	}
+	return true, s.Token, ""
+}
+
+func CreateAccount(accountName, password, realName string, sex int32, college string, grade int32, avatar string) (success bool, token, message string) {
+	u := model.User{
+		AccountName:   accountName,
+		Password:      password,
+		RealName:      realName,
+		Sex:           int(sex),
+		College:       college,
+		AccountStatus: int(accountPB.AccountStatus_UNNAMED),
+		Grade:         int(grade),
+		Avatar:        avatar,
+	}
+	count := int64(0)
+	model.DB.Where("account_name = ?", accountName).Model(u).Count(&count)
+	if count > 0 {
+		return false, "", "用户名重复，请换一个"
+	}
+	res := model.DB.Create(&u)
+	if res.Error != nil {
+		return false, "", "未知错误，请重试"
+	}
+	s := session.Create(u)
 	return true, s.Token, ""
 }

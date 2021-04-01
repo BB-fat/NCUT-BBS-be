@@ -34,3 +34,14 @@ func GetUserInfo(c *gin.Context) {
 		},
 	}))
 }
+
+func CreateAccount(c *gin.Context) {
+	req := accountPB.CreateAccountRequest{}
+	tool.LoadMessage(c, &req)
+	success, token, message := account.CreateAccount(req.AccountName, req.Password, req.RealName, int32(req.Sex), req.College, req.Grade, req.Avatar)
+	c.String(http.StatusOK, tool.DumpMessage(&accountPB.CreateAccountReply{
+		Success: success,
+		Token:   token,
+		Message: message,
+	}))
+}

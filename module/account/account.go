@@ -45,3 +45,24 @@ func CreateAccount(accountName, password, realName string, sex int32, college st
 	s := session.Create(u)
 	return true, s.Token, ""
 }
+
+func CreateVerifyInfo(userID uint, image, remark string) (success bool, message string) {
+	u := model.User{}
+	model.DB.First(&u, userID)
+	if u.ID == 0 {
+		return false, "没有找到用户"
+	}
+	info := model.VerifyInfo{}
+	model.DB.Where("user_id = ?", u.ID).First(info)
+	if info.ID != 0 {
+		return false, "不能重复提交实名申请"
+	}
+	info = model.VerifyInfo{
+		UserID: u.ID,
+		Image:  image,
+		Remark: remark,
+		Pass:   0,
+	}
+	model.DB.Create(&info)
+	return true, ""
+}

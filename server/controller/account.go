@@ -45,3 +45,14 @@ func CreateAccount(c *gin.Context) {
 		Message: message,
 	}))
 }
+
+func SubmitVerfiyInfo(c *gin.Context) {
+	req := accountPB.SubmitVerifyInfoRequest{}
+	tool.LoadMessage(c, &req)
+	u := tool.GetUser(c)
+	success, message := account.CreateVerifyInfo(u.ID, req.Image, req.Remark)
+	c.String(http.StatusOK, tool.DumpMessage(&accountPB.SubmitVerifyInfoReply{
+		Success: success,
+		Message: message,
+	}))
+}

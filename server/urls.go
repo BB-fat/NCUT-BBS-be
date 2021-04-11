@@ -28,6 +28,8 @@ func setUrl(r *gin.Engine) {
 			accountSession.Use(middleware.Session())
 			{
 				accountSession.GET("/user-info", controller.GetUserInfo)
+
+				accountSession.POST("/verify", controller.SubmitVerfiyInfo)
 			}
 		}
 	}

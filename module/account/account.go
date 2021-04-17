@@ -53,17 +53,20 @@ func CreateVerifyInfo(userID uint, image, remark string) (success bool, message 
 		return false, "没有找到用户"
 	}
 	info := model.VerifyInfo{}
-	model.DB.Where("user_id = ?", u.ID).First(info)
+	model.DB.Where("user_id = ?", u.ID).First(&info)
 	if info.ID != 0 {
-		return false, "不能重复提交实名申请"
+		info.Image = image
+		info.Remark = remark
+		model.DB.Save(&info)
+	} else {
+		info = model.VerifyInfo{
+			UserID: u.ID,
+			Image:  image,
+			Remark: remark,
+			Pass:   0,
+		}
+		model.DB.Create(&info)
 	}
-	info = model.VerifyInfo{
-		UserID: u.ID,
-		Image:  image,
-		Remark: remark,
-		Pass:   0,
-	}
-	model.DB.Create(&info)
 	u.AccountStatus = int(accountPB.AccountStatus_PENDING_REVIEW)
 	model.DB.Save(&u)
 	return true, ""

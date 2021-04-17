@@ -29,7 +29,7 @@ func setUrl(r *gin.Engine) {
 			{
 				accountSession.GET("/user-info", controller.GetUserInfo)
 
-				accountSession.POST("/verify", controller.SubmitVerfiyInfo)
+				accountSession.POST("/verify", controller.SubmitVerifyInfo)
 			}
 		}
 	}

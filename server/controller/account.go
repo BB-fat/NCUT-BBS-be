@@ -46,7 +46,7 @@ func CreateAccount(c *gin.Context) {
 	}))
 }
 
-func SubmitVerfiyInfo(c *gin.Context) {
+func SubmitVerifyInfo(c *gin.Context) {
 	req := accountPB.SubmitVerifyInfoRequest{}
 	tool.LoadMessage(c, &req)
 	u := tool.GetUser(c)

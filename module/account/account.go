@@ -64,5 +64,7 @@ func CreateVerifyInfo(userID uint, image, remark string) (success bool, message 
 		Pass:   0,
 	}
 	model.DB.Create(&info)
+	u.AccountStatus = int(accountPB.AccountStatus_PENDING_REVIEW)
+	model.DB.Save(&u)
 	return true, ""
 }

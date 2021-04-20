@@ -32,6 +32,15 @@ func setUrl(r *gin.Engine) {
 				accountSession.POST("/verify", controller.SubmitVerifyInfo)
 			}
 		}
+
+		// 论坛
+		forum := v1.Group("/forum")
+		forum.Use(middleware.Session())
+		{
+			forum.POST("/post", controller.CreatePost)
+
+			forum.GET("/all", controller.GetPostList)
+		}
 	}
 
 	// 测试接口

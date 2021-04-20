@@ -14,7 +14,7 @@ func CreatePost(c *gin.Context) {
 	tool.LoadMessage(c, &req)
 	post := forum.Create(u.ID, req.Title, req.Content, req.Pictures)
 	c.String(http.StatusOK, tool.DumpMessage(&forumPB.CreatePostReply{
-		PostData: forum.Model2FullData(post),
+		PostData: forum.Model2Data(post),
 	}))
 }
 

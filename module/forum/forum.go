@@ -30,18 +30,18 @@ func Delete(ID uint) bool {
 	}
 }
 
-func GetAll() []*forumPB.PostDataSimple {
+func GetAll() []*forumPB.PostData {
 	var posts []model.Post
 	model.DB.Find(&posts)
-	var data []*forumPB.PostDataSimple
+	var data []*forumPB.PostData
 	for i := 0; i < len(posts); i++ {
-		data = append(data, Model2SimpleData(posts[i]))
+		data = append(data, Model2Data(posts[i]))
 	}
 	return data
 }
 
-func Model2FullData(post model.Post) *forumPB.PostDataFull {
-	return &forumPB.PostDataFull{
+func Model2Data(post model.Post) *forumPB.PostData {
+	return &forumPB.PostData{
 		Id:         int32(post.ID),
 		AuthorId:   int32(post.AuthorID),
 		CreateTime: post.CreateTime,
@@ -53,26 +53,4 @@ func Model2FullData(post model.Post) *forumPB.PostDataFull {
 		Unlikes:    int32(post.Unlikes),
 		Pictures:   strings.Split(post.Pictures, ","),
 	}
-}
-
-func Model2SimpleData(post model.Post) *forumPB.PostDataSimple {
-	data := &forumPB.PostDataSimple{
-		Id:         int32(post.ID),
-		AuthorId:   int32(post.AuthorID),
-		CreateTime: post.CreateTime,
-		UpdateTime: post.UpdateTime,
-		Title:      post.Title,
-		Views:      int32(post.Views),
-		Likes:      int32(post.Likes),
-		Unlikes:    int32(post.Unlikes),
-	}
-	if len(post.Content) <= 30 {
-		data.BriefContent = post.Content
-	} else {
-		data.BriefContent = post.Content[0:30]
-	}
-	if len(post.Pictures) > 0 {
-		data.FirstPicture = strings.Split(post.Pictures, ",")[0]
-	}
-	return data
 }

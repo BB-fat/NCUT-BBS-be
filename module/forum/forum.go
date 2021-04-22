@@ -95,3 +95,10 @@ func UnLike(userID, postID uint) {
 	}
 	model.DB.Where("user_id = ? AND post_id = ?", userID, postID).Delete(&data)
 }
+
+func AddViews(postID uint) {
+	var post model.Post
+	model.DB.First(&post, postID)
+	post.Views++
+	model.DB.Save(&post)
+}

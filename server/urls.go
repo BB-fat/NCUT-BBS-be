@@ -44,6 +44,8 @@ func setUrl(r *gin.Engine) {
 
 			forum.POST("/like", controller.LikePost)
 			forum.DELETE("/like", controller.UnLikePost)
+
+			forum.POST("/views", controller.AddPostViews)
 		}
 	}
 

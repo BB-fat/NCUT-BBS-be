@@ -48,3 +48,10 @@ func UnLikePost(c *gin.Context) {
 	forum.UnLike(tool.GetUser(c).ID, uint(req.Id))
 	c.String(http.StatusOK, tool.DumpMessage(&commonPB.EmptyMessage{}))
 }
+
+func AddPostViews(c *gin.Context) {
+	req := forumPB.AddPostViewsRequest{}
+	tool.LoadMessage(c, &req)
+	forum.AddViews(uint(req.Id))
+	c.String(http.StatusOK, tool.DumpMessage(&commonPB.EmptyMessage{}))
+}

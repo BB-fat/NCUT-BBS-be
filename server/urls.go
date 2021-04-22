@@ -38,17 +38,16 @@ func setUrl(r *gin.Engine) {
 		forum.Use(middleware.Session())
 		{
 			forum.POST("/post", controller.CreatePost)
+			forum.GET("/post", controller.GetPost)
 
 			forum.GET("/all", controller.GetPostList)
+
+			forum.POST("/like", controller.LikePost)
+			forum.DELETE("/like", controller.UnLikePost)
 		}
 	}
 
 	// 测试接口
 	if config.Config.Debug {
-		test := r.Group("text")
-		{
-			test.GET("/1", controller.Test1)
-			test.GET("/3", controller.Test3)
-		}
 	}
 }

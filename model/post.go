@@ -26,8 +26,6 @@ type Post struct {
 	UpdateTime int64 `gorm:"autoUpdateTime"`
 	Title      string
 	Views      int
-	Likes      int
 	Content    string
-	Unlikes    int
 	Pictures   string
 }

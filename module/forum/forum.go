@@ -3,7 +3,6 @@ package forum
 import (
 	"ncutbbs/model"
 	forumPB "ncutbbs/proto/forum"
-	"strings"
 )
 
 func Create(authorID uint, title, content string, pictures string) model.Post {
@@ -35,7 +34,7 @@ func GetOne(userID uint, postID uint) *forumPB.PostData {
 		ID: postID,
 	}
 	model.DB.Find(&post)
-	return Model2Data(post, userID)
+	return post.ToData(userID)
 }
 
 func GetAll(userID uint) []*forumPB.PostData {
@@ -43,36 +42,9 @@ func GetAll(userID uint) []*forumPB.PostData {
 	model.DB.Find(&posts)
 	var data []*forumPB.PostData
 	for i := 0; i < len(posts); i++ {
-		data = append(data, Model2Data(posts[i], userID))
+		data = append(data, posts[i].ToData(userID))
 	}
 	return data
-}
-
-func Model2Data(post model.Post, userID uint) *forumPB.PostData {
-	data := forumPB.PostData{
-		Id:         int32(post.ID),
-		AuthorId:   int32(post.AuthorID),
-		CreateTime: post.CreateTime,
-		UpdateTime: post.UpdateTime,
-		Title:      post.Title,
-		Views:      int32(post.Views),
-		Content:    post.Content,
-	}
-	if len(post.Pictures) == 0 {
-		data.Pictures = []string{}
-	} else {
-		data.Pictures = strings.Split(post.Pictures, ",")
-	}
-	var like model.PostLike
-	res := model.DB.Where("post_id = ?", post.ID).Find(&like)
-	data.Likes = int32(res.RowsAffected)
-	res = model.DB.Where("user_id = ? AND post_id = ?", userID, post.ID).Find(&like)
-	if res.RowsAffected > 0 {
-		data.IsLike = true
-	} else {
-		data.IsLike = false
-	}
-	return &data
 }
 
 func Like(userID, postID uint) bool {
@@ -101,4 +73,24 @@ func AddViews(postID uint) {
 	model.DB.First(&post, postID)
 	post.Views++
 	model.DB.Save(&post)
+}
+
+func CreateComment(userID, postID uint, content string) *forumPB.PostCommentData {
+	data := model.PostComment{
+		AuthorID: userID,
+		PostID:   postID,
+		Content:  content,
+	}
+	model.DB.Create(&data)
+	return data.ToData()
+}
+
+func GetPostComments(postID uint) []*forumPB.PostCommentData {
+	var data []model.PostComment
+	model.DB.Where("post_id = ?", postID).Find(&data)
+	list := make([]*forumPB.PostCommentData, len(data), len(data))
+	for i := 0; i < len(data); i++ {
+		list[i] = data[i].ToData()
+	}
+	return list
 }

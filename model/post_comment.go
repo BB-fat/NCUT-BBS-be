@@ -1,23 +1,6 @@
 package model
 
-/*
-create table ncut_bbs.post_comments
-(
-	id int auto_increment
-		primary key,
-	author_id int null,
-	post_id int null,
-	create_time int null,
-	content text null,
-	likes int null,
-	unlikes int null,
-	pictures text null,
-	constraint post_comments_posts_id_fk
-		foreign key (post_id) references ncut_bbs.posts (id),
-	constraint post_comments_users_id_fk
-		foreign key (author_id) references ncut_bbs.users (id)
-);
-*/
+import forumPB "ncutbbs/proto/forum"
 
 type PostComment struct {
 	ID         uint
@@ -25,7 +8,17 @@ type PostComment struct {
 	PostID     uint
 	CreateTime int64 `gorm:"autoCreateTime"`
 	Content    string
-	Likes      int
-	Unlikes    int
-	Pictures   string
+}
+
+func (p *PostComment) ToData() *forumPB.PostCommentData {
+	data := forumPB.PostCommentData{
+		Id:         int32(p.ID),
+		PostId:     int32(p.ID),
+		CreateTime: p.CreateTime,
+		Content:    p.Content,
+	}
+	user := User{}
+	DB.First(&user, p.AuthorID)
+	data.Author = user.ToSimpleData()
+	return &data
 }

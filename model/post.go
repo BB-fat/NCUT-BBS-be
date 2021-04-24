@@ -1,5 +1,10 @@
 package model
 
+import (
+	forumPB "ncutbbs/proto/forum"
+	"strings"
+)
+
 /*
 create table ncut_bbs.posts
 (
@@ -28,4 +33,31 @@ type Post struct {
 	Views      int
 	Content    string
 	Pictures   string
+}
+
+func (p *Post) ToData(userID uint) *forumPB.PostData {
+	data := forumPB.PostData{
+		Id:         int32(p.ID),
+		AuthorId:   int32(p.AuthorID),
+		CreateTime: p.CreateTime,
+		UpdateTime: p.UpdateTime,
+		Title:      p.Title,
+		Views:      int32(p.Views),
+		Content:    p.Content,
+	}
+	if len(p.Pictures) == 0 {
+		data.Pictures = []string{}
+	} else {
+		data.Pictures = strings.Split(p.Pictures, ",")
+	}
+	var like PostLike
+	res := DB.Where("post_id = ?", p.ID).Find(&like)
+	data.Likes = int32(res.RowsAffected)
+	res = DB.Where("user_id = ? AND post_id = ?", userID, p.ID).Find(&like)
+	if res.RowsAffected > 0 {
+		data.IsLike = true
+	} else {
+		data.IsLike = false
+	}
+	return &data
 }

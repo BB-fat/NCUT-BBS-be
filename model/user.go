@@ -1,5 +1,7 @@
 package model
 
+import accountPB "ncutbbs/proto/account"
+
 /*
 create table ncut_bbs.users
 (
@@ -31,4 +33,28 @@ type User struct {
 	AccountStatus int
 	Grade         int
 	CreateTime    int64 `gorm:"autoCreateTime"`
+}
+
+func (p *User) ToFullData() *accountPB.UserInfo {
+	return &accountPB.UserInfo{
+		Id:            int64(p.ID),
+		AccountName:   p.AccountName,
+		Avatar:        p.Avatar,
+		RealName:      p.RealName,
+		Sex:           accountPB.Sex(p.Sex),
+		College:       p.College,
+		AccountStatus: accountPB.AccountStatus(p.AccountStatus),
+		Grade:         int32(p.Grade),
+	}
+}
+
+func (p *User) ToSimpleData() *accountPB.UserInfo {
+	return &accountPB.UserInfo{
+		Id:          int64(p.ID),
+		AccountName: p.AccountName,
+		Avatar:      p.Avatar,
+		Sex:         accountPB.Sex(p.Sex),
+		College:     p.College,
+		Grade:       int32(p.Grade),
+	}
 }

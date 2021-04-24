@@ -16,7 +16,7 @@ func CreatePost(c *gin.Context) {
 	tool.LoadMessage(c, &req)
 	post := forum.Create(u.ID, req.Title, req.Content, req.Pictures)
 	c.String(http.StatusOK, tool.DumpMessage(&forumPB.CreatePostReply{
-		PostData: forum.Model2Data(post, u.ID),
+		PostData: post.ToData(u.ID),
 	}))
 }
 
@@ -54,4 +54,19 @@ func AddPostViews(c *gin.Context) {
 	tool.LoadMessage(c, &req)
 	forum.AddViews(uint(req.Id))
 	c.String(http.StatusOK, tool.DumpMessage(&commonPB.EmptyMessage{}))
+}
+
+func CreatePostComment(c *gin.Context) {
+	req := forumPB.CreatePostCommentRequest{}
+	tool.LoadMessage(c, &req)
+	c.String(http.StatusOK, tool.DumpMessage(&forumPB.CreatePostCommentReply{
+		Data: forum.CreateComment(tool.GetUser(c).ID, uint(req.PostId), req.Content),
+	}))
+}
+
+func GetPostComment(c *gin.Context) {
+	postID, _ := strconv.Atoi(c.Query("post_id"))
+	c.String(http.StatusOK, tool.DumpMessage(&forumPB.GetPostCommentReply{
+		Data: forum.GetPostComments(uint(postID)),
+	}))
 }

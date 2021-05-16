@@ -50,6 +50,12 @@ func setUrl(r *gin.Engine) {
 			forum.POST("/comment", controller.CreatePostComment)
 			forum.GET("/comment", controller.GetPostComment)
 		}
+
+		qa := v1.Group("/qa")
+		qa.Use(middleware.Session())
+		{
+			qa.POST("/question", controller.CreateQuestion)
+		}
 	}
 
 	// 测试接口

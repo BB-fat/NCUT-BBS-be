@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"time"
 )
 
 func Upload(c *gin.Context) {
@@ -22,7 +23,7 @@ func Upload(c *gin.Context) {
 	if err := c.SaveUploadedFile(file, filePath); err != nil {
 		c.String(http.StatusBadRequest, fmt.Sprintf("upload file err: %s", err.Error()))
 	}
-	fileUrl := oss.UploadImage(filename, filePath)
+	fileUrl := oss.UploadImage(fmt.Sprintf("%d_%s", time.Now().Unix(), filename), filePath)
 	c.String(http.StatusOK, fileUrl)
 	_ = os.Remove(filePath)
 }

@@ -55,6 +55,7 @@ func setUrl(r *gin.Engine) {
 		qa.Use(middleware.Session())
 		{
 			qa.POST("/question", controller.CreateQuestion)
+			qa.GET("/all-question", controller.GetQuestionList)
 		}
 	}
 

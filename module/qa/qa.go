@@ -1,6 +1,9 @@
 package qa
 
-import "ncutbbs/model"
+import (
+	"ncutbbs/model"
+	qaPB "ncutbbs/proto/qa"
+)
 
 func CreateQuestion(authorID uint, title, content string, pictures string) model.Question {
 	question := model.Question{
@@ -24,4 +27,14 @@ func DeleteQuestion(ID uint) bool {
 	} else {
 		return true
 	}
+}
+
+func GetAllQuestion() []*qaPB.QuestionData {
+	var questions []model.Question
+	model.DB.Find(&questions)
+	var data []*qaPB.QuestionData
+	for i := 0; i < len(questions); i++ {
+		data = append(data, questions[i].ToData())
+	}
+	return data
 }

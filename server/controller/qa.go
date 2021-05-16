@@ -17,3 +17,9 @@ func CreateQuestion(c *gin.Context) {
 		Data: q.ToData(),
 	}))
 }
+
+func GetQuestionList(c *gin.Context) {
+	c.String(http.StatusOK, tool.DumpMessage(&qaPB.GetQuestionListReply{
+		Data: qa.GetAllQuestion(),
+	}))
+}

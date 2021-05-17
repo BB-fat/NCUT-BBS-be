@@ -38,3 +38,10 @@ func GetAllQuestion() []*qaPB.QuestionData {
 	}
 	return data
 }
+
+func AddViews(questionID uint) {
+	var question model.Question
+	model.DB.First(&question, questionID)
+	question.Views++
+	model.DB.Save(&question)
+}

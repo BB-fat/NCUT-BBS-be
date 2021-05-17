@@ -7,12 +7,12 @@
 package qaPB
 
 import (
-	//_ "account"
-	proto "github.com/golang/protobuf/proto"
-	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
-	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	reflect "reflect"
-	sync "sync"
+	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/reflect/protoreflect"
+	"google.golang.org/protobuf/runtime/protoimpl"
+	account "ncutbbs/proto/account"
+	"reflect"
+	"sync"
 )
 
 const (
@@ -325,6 +325,344 @@ func (x *AddQuestionViewsRequest) GetId() int32 {
 	return 0
 }
 
+type LikeAnswerRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *LikeAnswerRequest) Reset() {
+	*x = LikeAnswerRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_qa_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *LikeAnswerRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LikeAnswerRequest) ProtoMessage() {}
+
+func (x *LikeAnswerRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_qa_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LikeAnswerRequest.ProtoReflect.Descriptor instead.
+func (*LikeAnswerRequest) Descriptor() ([]byte, []int) {
+	return file_qa_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *LikeAnswerRequest) GetId() int32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type UnLikeAnswerRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id int32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *UnLikeAnswerRequest) Reset() {
+	*x = UnLikeAnswerRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_qa_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UnLikeAnswerRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UnLikeAnswerRequest) ProtoMessage() {}
+
+func (x *UnLikeAnswerRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_qa_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UnLikeAnswerRequest.ProtoReflect.Descriptor instead.
+func (*UnLikeAnswerRequest) Descriptor() ([]byte, []int) {
+	return file_qa_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *UnLikeAnswerRequest) GetId() int32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type AnswerData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id         int32             `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Author     *account.UserInfo `protobuf:"bytes,2,opt,name=author,proto3" json:"author,omitempty"`
+	QuestionId int32             `protobuf:"varint,3,opt,name=question_id,json=questionId,proto3" json:"question_id,omitempty"`
+	CreateTime int64             `protobuf:"varint,4,opt,name=create_time,json=createTime,proto3" json:"create_time,omitempty"`
+	Content    string            `protobuf:"bytes,5,opt,name=content,proto3" json:"content,omitempty"`
+	Likes      int32             `protobuf:"varint,6,opt,name=likes,proto3" json:"likes,omitempty"`
+	IsLike     bool              `protobuf:"varint,7,opt,name=is_like,json=isLike,proto3" json:"is_like,omitempty"`
+}
+
+func (x *AnswerData) Reset() {
+	*x = AnswerData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_qa_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *AnswerData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AnswerData) ProtoMessage() {}
+
+func (x *AnswerData) ProtoReflect() protoreflect.Message {
+	mi := &file_qa_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AnswerData.ProtoReflect.Descriptor instead.
+func (*AnswerData) Descriptor() ([]byte, []int) {
+	return file_qa_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *AnswerData) GetId() int32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *AnswerData) GetAuthor() *account.UserInfo {
+	if x != nil {
+		return x.Author
+	}
+	return nil
+}
+
+func (x *AnswerData) GetQuestionId() int32 {
+	if x != nil {
+		return x.QuestionId
+	}
+	return 0
+}
+
+func (x *AnswerData) GetCreateTime() int64 {
+	if x != nil {
+		return x.CreateTime
+	}
+	return 0
+}
+
+func (x *AnswerData) GetContent() string {
+	if x != nil {
+		return x.Content
+	}
+	return ""
+}
+
+func (x *AnswerData) GetLikes() int32 {
+	if x != nil {
+		return x.Likes
+	}
+	return 0
+}
+
+func (x *AnswerData) GetIsLike() bool {
+	if x != nil {
+		return x.IsLike
+	}
+	return false
+}
+
+type GetAnswerReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Data []*AnswerData `protobuf:"bytes,1,rep,name=data,proto3" json:"data,omitempty"`
+}
+
+func (x *GetAnswerReply) Reset() {
+	*x = GetAnswerReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_qa_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetAnswerReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAnswerReply) ProtoMessage() {}
+
+func (x *GetAnswerReply) ProtoReflect() protoreflect.Message {
+	mi := &file_qa_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAnswerReply.ProtoReflect.Descriptor instead.
+func (*GetAnswerReply) Descriptor() ([]byte, []int) {
+	return file_qa_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *GetAnswerReply) GetData() []*AnswerData {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
+type CreateAnswerRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	QuestionId int32  `protobuf:"varint,1,opt,name=question_id,json=questionId,proto3" json:"question_id,omitempty"`
+	Content    string `protobuf:"bytes,2,opt,name=content,proto3" json:"content,omitempty"`
+}
+
+func (x *CreateAnswerRequest) Reset() {
+	*x = CreateAnswerRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_qa_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateAnswerRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateAnswerRequest) ProtoMessage() {}
+
+func (x *CreateAnswerRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_qa_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateAnswerRequest.ProtoReflect.Descriptor instead.
+func (*CreateAnswerRequest) Descriptor() ([]byte, []int) {
+	return file_qa_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *CreateAnswerRequest) GetQuestionId() int32 {
+	if x != nil {
+		return x.QuestionId
+	}
+	return 0
+}
+
+func (x *CreateAnswerRequest) GetContent() string {
+	if x != nil {
+		return x.Content
+	}
+	return ""
+}
+
+type CreateAnswerReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Data *AnswerData `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
+}
+
+func (x *CreateAnswerReply) Reset() {
+	*x = CreateAnswerReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_qa_proto_msgTypes[10]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateAnswerReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateAnswerReply) ProtoMessage() {}
+
+func (x *CreateAnswerReply) ProtoReflect() protoreflect.Message {
+	mi := &file_qa_proto_msgTypes[10]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateAnswerReply.ProtoReflect.Descriptor instead.
+func (*CreateAnswerReply) Descriptor() ([]byte, []int) {
+	return file_qa_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *CreateAnswerReply) GetData() *AnswerData {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
 var File_qa_proto protoreflect.FileDescriptor
 
 var file_qa_proto_rawDesc = []byte{
@@ -359,8 +697,38 @@ var file_qa_proto_rawDesc = []byte{
 	0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x22, 0x29, 0x0a, 0x17, 0x41, 0x64, 0x64, 0x51, 0x75, 0x65,
 	0x73, 0x74, 0x69, 0x6f, 0x6e, 0x56, 0x69, 0x65, 0x77, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
 	0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x69,
-	0x64, 0x42, 0x06, 0x5a, 0x04, 0x71, 0x61, 0x50, 0x42, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x33,
+	0x64, 0x22, 0x23, 0x0a, 0x11, 0x4c, 0x69, 0x6b, 0x65, 0x41, 0x6e, 0x73, 0x77, 0x65, 0x72, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x05, 0x52, 0x02, 0x69, 0x64, 0x22, 0x25, 0x0a, 0x13, 0x55, 0x6e, 0x4c, 0x69, 0x6b, 0x65,
+	0x41, 0x6e, 0x73, 0x77, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a,
+	0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x69, 0x64, 0x22, 0xd2, 0x01,
+	0x0a, 0x0a, 0x41, 0x6e, 0x73, 0x77, 0x65, 0x72, 0x44, 0x61, 0x74, 0x61, 0x12, 0x0e, 0x0a, 0x02,
+	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x69, 0x64, 0x12, 0x29, 0x0a, 0x06,
+	0x61, 0x75, 0x74, 0x68, 0x6f, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x11, 0x2e, 0x61,
+	0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x49, 0x6e, 0x66, 0x6f, 0x52,
+	0x06, 0x61, 0x75, 0x74, 0x68, 0x6f, 0x72, 0x12, 0x1f, 0x0a, 0x0b, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0a, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x12, 0x1f, 0x0a, 0x0b, 0x63, 0x72, 0x65, 0x61,
+	0x74, 0x65, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0a, 0x63,
+	0x72, 0x65, 0x61, 0x74, 0x65, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x6f, 0x6e,
+	0x74, 0x65, 0x6e, 0x74, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x6f, 0x6e, 0x74,
+	0x65, 0x6e, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x6c, 0x69, 0x6b, 0x65, 0x73, 0x18, 0x06, 0x20, 0x01,
+	0x28, 0x05, 0x52, 0x05, 0x6c, 0x69, 0x6b, 0x65, 0x73, 0x12, 0x17, 0x0a, 0x07, 0x69, 0x73, 0x5f,
+	0x6c, 0x69, 0x6b, 0x65, 0x18, 0x07, 0x20, 0x01, 0x28, 0x08, 0x52, 0x06, 0x69, 0x73, 0x4c, 0x69,
+	0x6b, 0x65, 0x22, 0x34, 0x0a, 0x0e, 0x47, 0x65, 0x74, 0x41, 0x6e, 0x73, 0x77, 0x65, 0x72, 0x52,
+	0x65, 0x70, 0x6c, 0x79, 0x12, 0x22, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x01, 0x20, 0x03,
+	0x28, 0x0b, 0x32, 0x0e, 0x2e, 0x71, 0x61, 0x2e, 0x41, 0x6e, 0x73, 0x77, 0x65, 0x72, 0x44, 0x61,
+	0x74, 0x61, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x22, 0x50, 0x0a, 0x13, 0x43, 0x72, 0x65, 0x61,
+	0x74, 0x65, 0x41, 0x6e, 0x73, 0x77, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
+	0x1f, 0x0a, 0x0b, 0x71, 0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x05, 0x52, 0x0a, 0x71, 0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64,
+	0x12, 0x18, 0x0a, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x22, 0x37, 0x0a, 0x11, 0x43, 0x72,
+	0x65, 0x61, 0x74, 0x65, 0x41, 0x6e, 0x73, 0x77, 0x65, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12,
+	0x22, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0e, 0x2e,
+	0x71, 0x61, 0x2e, 0x41, 0x6e, 0x73, 0x77, 0x65, 0x72, 0x44, 0x61, 0x74, 0x61, 0x52, 0x04, 0x64,
+	0x61, 0x74, 0x61, 0x42, 0x06, 0x5a, 0x04, 0x71, 0x61, 0x50, 0x42, 0x62, 0x06, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x33,
 }
 
 var (
@@ -375,22 +743,32 @@ func file_qa_proto_rawDescGZIP() []byte {
 	return file_qa_proto_rawDescData
 }
 
-var file_qa_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_qa_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_qa_proto_goTypes = []interface{}{
 	(*QuestionData)(nil),            // 0: qa.QuestionData
 	(*CreateQuestionRequest)(nil),   // 1: qa.CreateQuestionRequest
 	(*CreateQuestionReply)(nil),     // 2: qa.CreateQuestionReply
 	(*GetQuestionListReply)(nil),    // 3: qa.GetQuestionListReply
 	(*AddQuestionViewsRequest)(nil), // 4: qa.AddQuestionViewsRequest
+	(*LikeAnswerRequest)(nil),       // 5: qa.LikeAnswerRequest
+	(*UnLikeAnswerRequest)(nil),     // 6: qa.UnLikeAnswerRequest
+	(*AnswerData)(nil),              // 7: qa.AnswerData
+	(*GetAnswerReply)(nil),          // 8: qa.GetAnswerReply
+	(*CreateAnswerRequest)(nil),     // 9: qa.CreateAnswerRequest
+	(*CreateAnswerReply)(nil),       // 10: qa.CreateAnswerReply
+	(*account.UserInfo)(nil),        // 11: account.UserInfo
 }
 var file_qa_proto_depIdxs = []int32{
-	0, // 0: qa.CreateQuestionReply.data:type_name -> qa.QuestionData
-	0, // 1: qa.GetQuestionListReply.data:type_name -> qa.QuestionData
-	2, // [2:2] is the sub-list for method output_type
-	2, // [2:2] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	0,  // 0: qa.CreateQuestionReply.data:type_name -> qa.QuestionData
+	0,  // 1: qa.GetQuestionListReply.data:type_name -> qa.QuestionData
+	11, // 2: qa.AnswerData.author:type_name -> account.UserInfo
+	7,  // 3: qa.GetAnswerReply.data:type_name -> qa.AnswerData
+	7,  // 4: qa.CreateAnswerReply.data:type_name -> qa.AnswerData
+	5,  // [5:5] is the sub-list for method output_type
+	5,  // [5:5] is the sub-list for method input_type
+	5,  // [5:5] is the sub-list for extension type_name
+	5,  // [5:5] is the sub-list for extension extendee
+	0,  // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_qa_proto_init() }
@@ -459,6 +837,78 @@ func file_qa_proto_init() {
 				return nil
 			}
 		}
+		file_qa_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*LikeAnswerRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_qa_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UnLikeAnswerRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_qa_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*AnswerData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_qa_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetAnswerReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_qa_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CreateAnswerRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_qa_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CreateAnswerReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -466,7 +916,7 @@ func file_qa_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_qa_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   5,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

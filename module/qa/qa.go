@@ -45,3 +45,34 @@ func AddViews(questionID uint) {
 	question.Views++
 	model.DB.Save(&question)
 }
+
+func GetAnswers(questionID, userID uint) []*qaPB.AnswerData {
+	var data []model.Answer
+	model.DB.Where("question_id = ?", questionID).Find(&data)
+	list := make([]*qaPB.AnswerData, len(data), len(data))
+	for i := 0; i < len(data); i++ {
+		list[i] = data[i].ToData(userID)
+	}
+	return list
+}
+
+func CreateAnswer(questionID, userID uint, content string) {
+	answer := model.Answer{
+		AuthorID:   userID,
+		QuestionID: questionID,
+		Content:    content,
+	}
+	model.DB.Create(&answer)
+}
+
+func LikeAnswer(answerID, userID uint) {
+	al := model.AnswerLike{
+		UserID:   userID,
+		AnswerID: answerID,
+	}
+	model.DB.Create(&al)
+}
+
+func UnlikeAnswer(answerID, userID uint) {
+	model.DB.Where("answer_id = ? AND user_id = ?", answerID, userID).Delete(&model.AnswerLike{})
+}

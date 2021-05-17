@@ -57,6 +57,12 @@ func setUrl(r *gin.Engine) {
 			qa.POST("/question", controller.CreateQuestion)
 			qa.GET("/all-question", controller.GetQuestionList)
 
+			qa.GET("/answer", controller.GetAnswer)
+			qa.POST("/answer", controller.CreateAnswer)
+
+			qa.POST("/like", controller.LikeAnswer)
+			qa.DELETE("/like", controller.UnlikeAnswer)
+
 			qa.POST("/views", controller.AddQuestionViews)
 		}
 	}

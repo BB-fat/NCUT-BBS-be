@@ -25,7 +25,8 @@ func GetNewsList(userID uint) []*newsPB.NewsData {
 	data := make([]*newsPB.NewsData, len(list), len(list))
 	for i := 0; i < len(list); i++ {
 		data[i] = list[i].ToData()
+		list[i].Received = 1
+		model.DB.Save(&list[i])
 	}
-	//TODO receive 设置为1
 	return data
 }

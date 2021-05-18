@@ -50,7 +50,7 @@ func (p *Post) ToData(userID uint) *forumPB.PostData {
 	} else {
 		data.Pictures = strings.Split(p.Pictures, ",")
 	}
-	var like PostLike
+	var like []PostLike
 	res := DB.Where("post_id = ?", p.ID).Find(&like)
 	data.Likes = int32(res.RowsAffected)
 	res = DB.Where("user_id = ? AND post_id = ?", userID, p.ID).Find(&like)

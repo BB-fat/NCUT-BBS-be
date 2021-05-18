@@ -65,6 +65,11 @@ func setUrl(r *gin.Engine) {
 
 			qa.POST("/views", controller.AddQuestionViews)
 		}
+
+		news := v1.Group("/news")
+		{
+			news.GET("/list", controller.GetNews)
+		}
 	}
 
 	// 测试接口

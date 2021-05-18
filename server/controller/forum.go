@@ -38,7 +38,7 @@ func GetPostList(c *gin.Context) {
 func LikePost(c *gin.Context) {
 	req := forumPB.LikePostRequest{}
 	tool.LoadMessage(c, &req)
-	forum.Like(tool.GetUser(c).ID, uint(req.Id))
+	forum.Like(tool.GetUser(c), uint(req.Id))
 	c.String(http.StatusOK, tool.DumpMessage(&commonPB.EmptyMessage{}))
 }
 
@@ -60,7 +60,7 @@ func CreatePostComment(c *gin.Context) {
 	req := forumPB.CreatePostCommentRequest{}
 	tool.LoadMessage(c, &req)
 	c.String(http.StatusOK, tool.DumpMessage(&forumPB.CreatePostCommentReply{
-		Data: forum.CreateComment(tool.GetUser(c).ID, uint(req.PostId), req.Content),
+		Data: forum.CreateComment(tool.GetUser(c), uint(req.PostId), req.Content),
 	}))
 }
 

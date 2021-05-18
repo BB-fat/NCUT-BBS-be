@@ -48,11 +48,11 @@ func (a *Answer) ToData(userID uint) *qaPB.AnswerData {
 		Content:    a.Content,
 	}
 	user := User{
-		ID: userID,
+		ID: a.AuthorID,
 	}
 	DB.First(&user)
 	data.Author = user.ToSimpleData()
-	var al AnswerLike
+	var al []AnswerLike
 	res := DB.Where("answer_id = ?", a.ID).Find(&al)
 	data.Likes = int32(res.RowsAffected)
 	res = DB.Where("answer_id = ? AND user_id = ?", a.ID, userID).Find(&al)

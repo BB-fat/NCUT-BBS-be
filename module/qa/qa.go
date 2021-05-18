@@ -1,7 +1,10 @@
 package qa
 
 import (
+	"fmt"
 	"ncutbbs/model"
+	"ncutbbs/module/news"
+	newsPB "ncutbbs/proto/news"
 	qaPB "ncutbbs/proto/qa"
 )
 
@@ -63,6 +66,14 @@ func CreateAnswer(questionID, userID uint, content string) {
 		Content:    content,
 	}
 	model.DB.Create(&answer)
+
+	q := model.Question{ID: questionID}
+	model.DB.First(&q)
+	if q.AuthorID != userID {
+		u := model.User{ID: userID}
+		model.DB.First(&u)
+		news.CreateNews(newsPB.NewsType_QA, fmt.Sprintf("%s回答了你提出的问题", u.AccountName), content, q.AuthorID, q.ToData())
+	}
 }
 
 func LikeAnswer(answerID, userID uint) {
@@ -71,6 +82,16 @@ func LikeAnswer(answerID, userID uint) {
 		AnswerID: answerID,
 	}
 	model.DB.Create(&al)
+
+	a := model.Answer{ID: answerID}
+	model.DB.First(&a)
+	q := model.Question{ID: a.QuestionID}
+	model.DB.First(&q)
+	if a.AuthorID != userID {
+		u := model.User{ID: userID}
+		model.DB.First(&u)
+		news.CreateNews(newsPB.NewsType_QA, fmt.Sprintf("%s给你的回答点赞", u.AccountName), "轻点查看详情", a.AuthorID, q.ToData())
+	}
 }
 
 func UnlikeAnswer(answerID, userID uint) {
